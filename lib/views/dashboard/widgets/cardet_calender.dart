@@ -5,31 +5,31 @@ class HorizontalCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(16.0),
-      // child: Row(
-      //   children: [
-      //     Expanded(
-      //       child: Container(
-      //         color: Colors.black,
-      //         height: 200, // Example height for demonstration
-      //         child: Center(
-      //           child: Text('Container 1'),
-      //         ),
-      //       ),
-      //     ),
-      //     const SizedBox(width: 16.0),
-      //     Expanded(
-      //       child: Container(
-      //         color: Colors.black,
-      //         height: 200, // Example height for demonstration
-      //         child: Center(
-      //           child: Text('Container 2'),
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
+    return  Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.black,
+              height: 200, // Example height for demonstration
+              child: const Center(
+                child: Text('Container 1'),
+              ),
+            ),
+          ),
+           const SizedBox(width: 16.0),
+          Expanded(
+            child: Container(
+              color: Colors.black,
+              height: 200, // Example height for demonstration
+              child: const Center(
+                child: Text('Container 2'),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

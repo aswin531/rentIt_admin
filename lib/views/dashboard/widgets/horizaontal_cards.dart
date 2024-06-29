@@ -8,38 +8,33 @@ class HorizontalCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Expanded(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _buildCard(
-                title: 'Engine',
-                subtitle: 'Subtitle 1',
-                icon: Icons.bolt,
-                backgroundColor: Colors.blue,
-              ),
-              _buildCard(
-                title: 'Fuel',
-                subtitle: 'Subtitle 2',
-                icon: FontAwesomeIcons.gasPump,
-                backgroundColor: Colors.green,
-              ),
-              _buildCard(
-                title: 'Location',
-                subtitle: 'Subtitle 3',
-                icon: Icons.location_on_outlined,
-                backgroundColor: Colors.orange,
-              ),
-              _buildCard(
-                title: 'Card 4',
-                subtitle: 'Subtitle 4',
-                icon: Icons.discount_outlined,
-                backgroundColor: Colors.purple,
-              ),
-            ],
+      child: Row(
+        children: [
+          _buildCard(
+            title: 'Engine',
+            subtitle: 'Subtitle 1',
+            icon: Icons.bolt,
+            backgroundColor: Colors.blue,
           ),
-        ),
+          _buildCard(
+            title: 'Fuel',
+            subtitle: 'Subtitle 2',
+            icon: FontAwesomeIcons.gasPump,
+            backgroundColor: Colors.green,
+          ),
+          _buildCard(
+            title: 'Location',
+            subtitle: 'Subtitle 3',
+            icon: Icons.location_on_outlined,
+            backgroundColor: Colors.orange,
+          ),
+          _buildCard(
+            title: 'Card 4',
+            subtitle: 'Subtitle 4',
+            icon: Icons.discount_outlined,
+            backgroundColor: Colors.purple,
+          ),
+        ],
       ),
     );
   }

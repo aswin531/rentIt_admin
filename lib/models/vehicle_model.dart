@@ -1,18 +1,17 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class VehicleCar {
   String? id;
   String? make;
   String? engine;
-  String? seatCapacity;
+  int? seatCapacity;
   String? model;
   String? body;
   int? year;
   String? color;
   String? rentalPriceDay;
   bool? status;
-  String? mainimageUrl;
+  String? mainImageUrl;
   List<String>? imageUrls;
 
   VehicleCar({
@@ -26,8 +25,8 @@ class VehicleCar {
     this.color,
     this.rentalPriceDay,
     this.status,
-    this.mainimageUrl,
-    this.imageUrls,
+    required List<String> imageUrls,
+    required String mainImageUrl,
   });
 
 //================ Retrieving = Convert a Car from Firestore document================================
@@ -39,15 +38,15 @@ class VehicleCar {
       id: document.id,
       make: data["make"] ?? "Manufacturer(Toyota)",
       engine: data["engine"] ?? "Petrol",
-      seatCapacity: data["seatCapacity"] ?? "5",
+      seatCapacity: data["seatCapacity"] ?? 5,
       model: data["model"] ?? "Camry",
       body: data["body"] ?? "Sedan",
       year: data["year"] ?? 2024,
       color: data["color"] ?? "White",
       rentalPriceDay: data["rentalPricePerDay"] ?? "2500",
       status: data["status"] ?? "Unavailable",
-      mainimageUrl: data["mainimageUrl"] ?? "",
-      imageUrls:List<String>.from(data['imageUrls'] ?? []),
+      mainImageUrl: data["mainImageUrl"] ?? "",
+      imageUrls: List<String>.from(data['imageUrls'] ?? []),
     );
   }
 
@@ -64,8 +63,8 @@ class VehicleCar {
       "color": color,
       "rentalPricePerDay": rentalPriceDay,
       "status": status,
-      "mainimageUrl": mainimageUrl,
-      "imageUrls":imageUrls,
+      "mainimageUrl": mainImageUrl,
+      "imageUrls": imageUrls,
     };
   }
 }

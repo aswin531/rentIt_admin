@@ -1,10 +1,24 @@
-import 'package:flutter/material.dart';import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_it_admin_web/controllers/sidebarControllers/sidebar_controller.dart';
+import 'package:rent_it_admin_web/controllers/vehiclecarController/car_provider.dart';
+import 'package:rent_it_admin_web/firebase_options.dart';
 import 'package:rent_it_admin_web/views/sidebar/sidebar.dart';
-void main() {
+
+Future <void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MultiProvider(providers: [
-        ChangeNotifierProvider(create: (context) => SideBarProvider()),
-    ], child: const MyApp()));
+    ChangeNotifierProvider(
+      create: (context) => SideBarProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => VehicleCarProvider(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
