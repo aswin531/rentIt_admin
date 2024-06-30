@@ -41,3 +41,10 @@ Widget getLoadingListWidget(context, loadingInfo) => Padding(
         ],
       ),
     );
+
+
+class LoadingInfo {
+  final String message;
+
+  LoadingInfo(this.message);
+}

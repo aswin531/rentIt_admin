@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:rent_it_admin_web/controllers/sidebarControllers/sidebar_controller.dart';
 import 'package:rent_it_admin_web/controllers/vehiclecarController/car_provider.dart';
 import 'package:rent_it_admin_web/firebase_options.dart';
-import 'package:rent_it_admin_web/views/sidebar/sidebar.dart';
+import 'package:rent_it_admin_web/services/firebase/firebase_auth_services.dart';
+import 'package:rent_it_admin_web/views/auth/login.dart';
 
 Future <void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,11 +14,15 @@ Future <void> main() async{
   );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
+      create: (_) => AuthService(),
+    ),
+    ChangeNotifierProvider(
       create: (context) => SideBarProvider(),
     ),
     ChangeNotifierProvider(
       create: (context) => VehicleCarProvider(),
     ),
+
   ], child: const MyApp()));
 }
 
@@ -27,7 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SideBarWidgetTest(),
+      home:  SignInScreen(),
       theme: ThemeData(
         textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Open Sans'),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
