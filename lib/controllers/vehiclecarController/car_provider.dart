@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:rent_it_admin_web/models/vehicle_model.dart';
@@ -57,12 +58,17 @@ class VehicleCarProvider with ChangeNotifier {
 
   Future<void> addVehicleCar() async {
     if (_mainImageFile == null || _imageFiles.isEmpty) {
-      throw 'Please select main and additional images';
+      throw Exception('Please select main and additional images');
     }
 
     setLoading(true);
 
     try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        throw Exception('Please sign in to upload car details');
+      }
+
       String mainImageUrl = await uploadImage(_mainImageFile!);
       List<String> imageUrls = await uploadImages(_imageFiles);
 
@@ -81,11 +87,16 @@ class VehicleCarProvider with ChangeNotifier {
         imageUrls: imageUrls,
       );
 
-      await FirebaseFirestore.instance
-          .collection("vehiclecar")
-          .add(vehicleCar.toFireStoreDocument());
+      // Add try-catch block for Firestore write
+      try {
+        await FirebaseFirestore.instance
+            .collection("vehiclecar")
+            .add(vehicleCar.toFireStoreDocument());
+      } catch (e) {
+        throw Exception('Failed to add vehicle details to Firestore: $e');
+      }
     } catch (e) {
-      throw 'Failed to add vehicle car: $e';
+      throw Exception('Failed to add vehicle car: $e');
     } finally {
       setLoading(false);
     }
@@ -113,3 +124,13 @@ class VehicleCarProvider with ChangeNotifier {
     return downloadUrls;
   }
 }
+
+
+//OLD RULE
+// service firebase.storage {
+//   match /b/{bucket}/o {
+//     match /{allPaths=**} {
+//       allow read, write: if false;
+//     }
+//   }
+// }

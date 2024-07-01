@@ -21,13 +21,14 @@ class AuthService extends ChangeNotifier {
         return null;
       }
       final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-      print("auth token : ${googleAuth.accessToken}");
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
       final UserCredential userCredential =
           await firebaseAuth.signInWithCredential(credential);
       return userCredential.user;
     } catch (e) {
-      print("Error in Google SIgnIn : $e");
+      print("Error in Google Sign-In : $e");
       return null;
     }
   }
@@ -35,8 +36,11 @@ class AuthService extends ChangeNotifier {
   Future<User?> signUpWithEmailAndPassword(
       String email, String password, String name, String phone) async {
     try {
-      UserCredential userCredential = await firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential =
+          await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       User? user = userCredential.user;
 
       if (user != null) {
@@ -47,7 +51,6 @@ class AuthService extends ChangeNotifier {
           'uid': user.uid,
         });
       }
-      print(user);
       return user;
     } catch (e) {
       print('Failed to sign up : $e');
@@ -55,21 +58,26 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  //sign In
-
-  Future<User?> signInWithEmailAndPassword(
-      String email, String password) async {
+  Future<User?> signInWithEmailPassword(String email, String password) async {
     try {
-      UserCredential userCredential = await firebaseAuth
-          .signInWithEmailAndPassword(email: email, password: password);
+      final UserCredential userCredential =
+          await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
       return userCredential.user;
-    } catch (e) {
-      print('Failed to Sign In : $e');
-      return null;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      } else {
+        print('Failed to sign in: ${e.message}');
+      }
+      rethrow;
     }
   }
-
-  //signOut
 
   Future<void> signOut() async {
     try {
@@ -79,6 +87,5 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  //
   User? get currentUser => firebaseAuth.currentUser;
 }

@@ -5,8 +5,13 @@ class LogoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("LogoutScreen"),),
+    return  Scaffold(
+      body: Center(child: Column(
+        children: [
+          const Text("LogoutScreen"),
+          IconButton(onPressed: () {}, icon:const Icon(Icons.logout))
+        ],
+      ),),
     );
   }
 }

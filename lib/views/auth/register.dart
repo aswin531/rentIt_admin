@@ -23,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: const Text('Sign Up'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -33,7 +33,7 @@ class SignUpScreen extends StatelessWidget {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your name';
@@ -43,7 +43,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
@@ -53,7 +53,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFormField(
                 controller: _phoneController,
-                decoration: InputDecoration(labelText: 'phonenumber'),
+                decoration: const InputDecoration(labelText: 'phonenumber'),
                 // obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -64,7 +64,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -73,7 +73,7 @@ class SignUpScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   if (!_formKey.currentState!.validate()) {
@@ -104,7 +104,7 @@ class SignUpScreen extends StatelessWidget {
                     // Navigate to SideBarWidgetTest on success
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => SideBarWidgetTest(),
+                        builder: (context) => const SideBarWidgetTest(),
                       ),
                     );
                   } catch (e) {
@@ -113,7 +113,7 @@ class SignUpScreen extends StatelessWidget {
                     showErrorDialog(context, e.toString());
                   }
                 },
-                child: Text('Sign Up'),
+                child: const Text('Sign Up'),
               ),
             ],
           ),
