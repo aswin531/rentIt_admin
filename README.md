@@ -1,1 +1,1 @@
-# rentIt_admin
+# rentIt_service_providers
