@@ -15,7 +15,7 @@ class SignUpScreen extends StatelessWidget {
 
   final TextEditingController _passwordController = TextEditingController();
 
-  SignUpScreen({Key? key}) : super(key: key);
+  SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,8 +108,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     );
                   } catch (e) {
-                    // Show error dialog
-                    Navigator.pop(context); // Dismiss loading indicator dialog
+                    Navigator.pop(context); 
                     showErrorDialog(context, e.toString());
                   }
                 },

@@ -58,15 +58,19 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  Future<User?> signInWithEmailPassword(String email, String password) async {
+  Future<User?> signInWithEmailmPassword(String email, String password) async {
     try {
-      final UserCredential userCredential =
-          await firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      // final UserCredential userCredential =
+      //     await firebaseAuth.signInWithEmailAndPassword(
+      //   email: email,
+      //   password: password,
+      // );
+      FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
 
-      return userCredential.user;
+        //Navigator.
+
+      //return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

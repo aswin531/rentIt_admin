@@ -1,11 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_it_admin_web/controllers/vehiclecarController/car_provider.dart';
 import 'package:rent_it_admin_web/utils/error_widgets.dart';
 import 'package:rent_it_admin_web/utils/loading_indicator.dart';
-
 
 class CarForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -74,7 +71,8 @@ class CarForm extends StatelessWidget {
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Rental Price Per Day'),
+                  decoration:
+                      const InputDecoration(labelText: 'Rental Price Per Day'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -131,7 +129,7 @@ class CarForm extends StatelessWidget {
                 ),
               ],
             ),
-            if (vehicleCarProvider.isLoading) 
+            if (vehicleCarProvider.isLoading)
               const LoadingIndicator(), // Show the loading indicator when loading
           ],
         ),

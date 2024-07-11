@@ -63,53 +63,57 @@ class SignInScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-  onPressed: () async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    _formKey.currentState!.save();
+                onPressed: () async {
+                  authService.signInWithEmailmPassword(
+                      _emailController.text, _passwordController.text);
+                  // if (!_formKey.currentState!.validate()) {
+                  //   return;
+                  // }
+                  // _formKey.currentState!.save();
 
-    try {
-      // Show loading indicator
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: getLoadingListWidget(
-              context,
-              LoadingInfo('Signing in...'),
-            ),
-          );
-        },
-      );
+                  // try {
 
-      // Sign in
-      User? user = await authService.signInWithEmailPassword(
-        _emailController.text,
-        _passwordController.text,
-      );
+                  //   print("successs");
+                  //   // Show loading indicator
+                  //   // showDialog(
+                  //   //   context: context,
+                  //   //   barrierDismissible: false,
+                  //   //   builder: (BuildContext context) {
+                  //   //     return AlertDialog(
+                  //   //       content: getLoadingListWidget(
+                  //   //         context,
+                  //   //         LoadingInfo('Signing in...'),
+                  //   //       ),
+                  //   //     );
+                  //   //   },
+                  //   // );
 
-      if (user != null) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const SideBarWidgetTest(),
-          ),
-        );
-      } else {
-        // ignore: avoid_print
-        print('Error: User object from authService is null.');
-      }
+                  //   // Sign in
+                  //   // User? user = await authService.signInWithEmailmPassword(
+                  //   //   _emailController.text,
+                  //   //   _passwordController.text,
+                  //   // );
 
-      Navigator.pop(context); 
-    } on Exception catch (e) {
-      Navigator.pop(context);
-      showErrorDialog(context, getSignInErrorMessage(e));
-    }
-  },
-  child: const Text('Sign In'),
-),
+                  //   // if (user != null) {
+                  //   //   Navigator.of(context).pushReplacement(
+                  //   //     MaterialPageRoute(
+                  //   //       builder: (context) => const SideBarWidgetTest(),
+                  //   //     ),
+                  //   //   );
+                  //   // } else {
+                  //   //   // ignore: avoid_print
+                  //   //   print('Error: User object from authService is null.');
+                  //   // }
 
+                  //   //Navigator.pop(context);
+                  // } on Exception catch (e) {
+                  //   // Navigator.pop(context);
+                  //   print("errror");
+                  //   showErrorDialog(context, getSignInErrorMessage(e));
+                  // }
+                },
+                child: const Text('Sign In'),
+              ),
             ],
           ),
         ),

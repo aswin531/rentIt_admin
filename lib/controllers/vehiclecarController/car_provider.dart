@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -33,10 +34,15 @@ class VehicleCarProvider with ChangeNotifier {
 
   Future<void> pickImages() async {
     try {
-      final result = await FilePicker.platform
-          .pickFiles(allowMultiple: true, type: FileType.image);
+      final result = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.image,
+      );
       if (result != null) {
-        _imageFiles = result.files.map((file) => file.bytes!).toList();
+        _imageFiles = result.files
+            .where((file) => file.bytes != null)
+            .map((file) => file.bytes!)
+            .toList();
         notifyListeners();
       }
     } catch (e) {
@@ -87,14 +93,9 @@ class VehicleCarProvider with ChangeNotifier {
         imageUrls: imageUrls,
       );
 
-      // Add try-catch block for Firestore write
-      try {
-        await FirebaseFirestore.instance
-            .collection("vehiclecar")
-            .add(vehicleCar.toFireStoreDocument());
-      } catch (e) {
-        throw Exception('Failed to add vehicle details to Firestore: $e');
-      }
+      await FirebaseFirestore.instance
+          .collection("vehiclecar")
+          .add(vehicleCar.toFireStoreDocument());
     } catch (e) {
       throw Exception('Failed to add vehicle car: $e');
     } finally {
@@ -109,7 +110,9 @@ class VehicleCarProvider with ChangeNotifier {
           "vehicleCar_images/${DateTime.now().millisecondsSinceEpoch}.jpg");
       UploadTask uploadTask = ref.putData(imageFile);
       TaskSnapshot taskSnapshot = await uploadTask;
-      return await taskSnapshot.ref.getDownloadURL();
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      log("Image uploaded: $downloadUrl");
+      return downloadUrl;
     } catch (e) {
       throw 'Failed to upload image: $e';
     }
@@ -124,13 +127,3 @@ class VehicleCarProvider with ChangeNotifier {
     return downloadUrls;
   }
 }
-
-
-//OLD RULE
-// service firebase.storage {
-//   match /b/{bucket}/o {
-//     match /{allPaths=**} {
-//       allow read, write: if false;
-//     }
-//   }
-// }
