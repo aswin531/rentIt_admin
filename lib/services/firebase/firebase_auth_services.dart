@@ -81,6 +81,7 @@ class AuthService extends ChangeNotifier {
       }
       rethrow;
     }
+    return null;
   }
 
   Future<void> signOut() async {

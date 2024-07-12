@@ -1,13 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_it_admin_web/services/firebase/firebase_auth_services.dart';
-import 'package:rent_it_admin_web/utils/error_widgets.dart';
-import 'package:rent_it_admin_web/utils/list_util_widgets.dart';
 import 'package:rent_it_admin_web/views/auth/register.dart';
-import 'package:rent_it_admin_web/views/sidebar/sidebar.dart';
 
 class SignInScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -66,51 +62,6 @@ class SignInScreen extends StatelessWidget {
                 onPressed: () async {
                   authService.signInWithEmailmPassword(
                       _emailController.text, _passwordController.text);
-                  // if (!_formKey.currentState!.validate()) {
-                  //   return;
-                  // }
-                  // _formKey.currentState!.save();
-
-                  // try {
-
-                  //   print("successs");
-                  //   // Show loading indicator
-                  //   // showDialog(
-                  //   //   context: context,
-                  //   //   barrierDismissible: false,
-                  //   //   builder: (BuildContext context) {
-                  //   //     return AlertDialog(
-                  //   //       content: getLoadingListWidget(
-                  //   //         context,
-                  //   //         LoadingInfo('Signing in...'),
-                  //   //       ),
-                  //   //     );
-                  //   //   },
-                  //   // );
-
-                  //   // Sign in
-                  //   // User? user = await authService.signInWithEmailmPassword(
-                  //   //   _emailController.text,
-                  //   //   _passwordController.text,
-                  //   // );
-
-                  //   // if (user != null) {
-                  //   //   Navigator.of(context).pushReplacement(
-                  //   //     MaterialPageRoute(
-                  //   //       builder: (context) => const SideBarWidgetTest(),
-                  //   //     ),
-                  //   //   );
-                  //   // } else {
-                  //   //   // ignore: avoid_print
-                  //   //   print('Error: User object from authService is null.');
-                  //   // }
-
-                  //   //Navigator.pop(context);
-                  // } on Exception catch (e) {
-                  //   // Navigator.pop(context);
-                  //   print("errror");
-                  //   showErrorDialog(context, getSignInErrorMessage(e));
-                  // }
                 },
                 child: const Text('Sign In'),
               ),
